@@ -8,7 +8,7 @@ module.exports.close = close;
 module.exports.write = write;
 
 function open (pin, mode) {
-    close(pin);
+    try { close(pin); } catch (e) {}
     exec('sudo echo ' + pin + ' > ' + path + 'export');
     exec('sudo echo ' + mode + ' > ' + path + 'gpio' + pin + '/direction');
 }
