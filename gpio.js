@@ -7,20 +7,23 @@ module.exports.open = open;
 module.exports.close = close;
 module.exports.write = write;
 
+function echo (cmd) {
+    console.log(cmd);
+}
 
 function open (pin, mode) {
     close(pin);
-    exec('sudo echo ' + pin + ' > ' + path + 'export');
-    exec('sudo echo ' + mode + ' > ' + path + '/gpio' + pin + '/direction');
+    exec('sudo echo ' + pin + ' > ' + path + 'export', echo('open'));
+    exec('sudo echo ' + mode + ' > ' + path + '/gpio' + pin + '/direction', echo('open'));
 }
 
 function close (pin) {
-    exec('sudo echo ' + pin + ' > ' + path + 'unexport');
+    exec('sudo echo ' + pin + ' > ' + path + 'unexport', echo('close'));
 }
 
 function write (pin, val) {
     if (val)
-        exec('echo 1 > ' + path + '/gpio' + pin + '/value');
+        exec('echo 1 > ' + path + '/gpio' + pin + '/value', echo('write'));
     else
-        exec('echo 0 > ' + path + '/gpio' + pin + '/value');
+        exec('echo 0 > ' + path + '/gpio' + pin + '/value', echo('write'));
 }
