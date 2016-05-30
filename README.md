@@ -1,11 +1,10 @@
 # NodeServer
 
-Para dar permiso al servidor es necesario hacer lo siguiente en la RaspberryPi
+Para usar el GPIO de RaspberryPi, debe usarse de esta forma
 
 ```
-git clone git://github.com/quick2wire/quick2wire-gpio-admin.git
-cd quick2wire-gpio-admin
-make
-sudo make install
-sudo adduser $USER gpio
+echo 17 > /sys/class/gpio/export
+echo out > /sys/class/gpio/gpio17/direction
+echo 1 > /sys/class/gpio/gpio17/value
+echo 17 > /sys/class/gpio/unexport
 ```
