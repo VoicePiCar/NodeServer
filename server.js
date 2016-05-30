@@ -23,8 +23,8 @@ io.on('connection', function (socket) {
 	
     console.log('android device connected');
     socket.on('command', function (cmd) {
-        gpio.open(leftMotor, "output");
-        gpio.open(rightMotor, "output");
+        gpio.open(leftMotor, "out");
+        gpio.open(rightMotor, "out");
         console.log('command: ' + cmd);
         switch (cmd) {
             case 'go':

@@ -1,29 +1,25 @@
 'use strict';
 
-var exec = require('child_process').exec;
+var exec = require('child_process').execSync;
 const path = '/sys/class/gpio/';
 
 module.exports.open = open;
 module.exports.close = close;
 module.exports.write = write;
 
-function echo (cmd) {
-    console.log(cmd);
-}
-
 function open (pin, mode) {
     close(pin);
-    exec('sudo echo ' + pin + ' > ' + path + 'export', echo('open'));
-    exec('sudo echo ' + mode + ' > ' + path + '/gpio' + pin + '/direction', echo('open'));
+    exec('sudo echo ' + pin + ' > ' + path + 'export');
+    exec('sudo echo ' + mode + ' > ' + path + 'gpio' + pin + '/direction');
 }
 
 function close (pin) {
-    exec('sudo echo ' + pin + ' > ' + path + 'unexport', echo('close'));
+    exec('sudo echo ' + pin + ' > ' + path + 'unexport');
 }
 
 function write (pin, val) {
     if (val)
-        exec('echo 1 > ' + path + '/gpio' + pin + '/value', echo('write'));
+        exec('sudo echo 1 > ' + path + 'gpio' + pin + '/value');
     else
-        exec('echo 0 > ' + path + '/gpio' + pin + '/value', echo('write'));
+        exec('sudo echo 0 > ' + path + 'gpio' + pin + '/value');
 }
